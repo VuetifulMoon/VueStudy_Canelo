@@ -54,6 +54,7 @@ export default {
         commit("DELETE_TODO", todoId);
       }, 500);
     },
+
     eidtTodo({ commit }, payload) {
       setTimeout(function () {
         commit("EDIT_TODO", payload);
