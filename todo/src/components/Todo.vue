@@ -1,11 +1,11 @@
 <template>
   <div class="mb-2 d-flex">
     <div>
-      <input type="checkbox" :checked="todo.checked" @change="toogleCheckBox">
+      <input type="checkbox" :checked="todo.checked" @change="toggleCheckBox">
     </div>
     <div v-if="editState === true">
     <input type="text"
-    v-model="text" @keyup.enter="editTodo" @input="todo.text"><br>
+    v-model="editText" @keyup.enter="editTodo"><br>
     <button @click="editTodo">수정</button>
     <button @click="todoEdit">취소</button>
   </div>
@@ -24,7 +24,7 @@ export default{
   data(){
     return{
   editState: false,
-  text: "",
+  editText: "",
     }
   },
 props:{
@@ -34,7 +34,7 @@ props:{
   },
 },
 methods:{
-  toogleCheckBox(e){
+  toggleCheckBox(e){
     this.$store.dispatch('todo/toggleTodo',{
       id:this.todo.id,
       checked:e.target.checked
@@ -46,12 +46,12 @@ methods:{
   //수정창 생성
   todoEdit(){
     this.editState = !this.editState
+    this.edtiText = this.$store.state.todo.text;
   },
   //변경된 내용으로 수정
   editTodo(){
-    this.$store.dispatch('todo/eidtTodo',{text : this.text ,id : this.todo.id})
+    this.$store.dispatch('todo/editTodo',{text : this.editText ,id : this.todo.id})
     this.editState = !this.editState
-    this.text = this.$store.state.todo.text
   }
 }
 }

@@ -1,7 +1,7 @@
 <template>
   <input type="text" class="w-100 p-2 mt-2"  
   placeholder="Search Todo!"
-  v-model="keyword" @input="searchTodo"/>
+  v-model="keyword" @input="searchTodo">
 </template>
 <script>
 export default {
@@ -11,8 +11,8 @@ export default {
     }
   },
   methods:{
-    searchTodo(e){
-      this.$store.dispatch('todo/searchTodo',e.target.value)
+    searchTodo(){
+      this.$store.dispatch('todo/searchTodo',this.keyword)
     }
   }
   

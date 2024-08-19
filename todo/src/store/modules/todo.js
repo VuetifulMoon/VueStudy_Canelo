@@ -5,6 +5,8 @@ export default {
       { id: 1, text: "Buy a Car", checked: false },
       { id: 2, text: "Buy a Game", checked: false },
     ],
+    searchTodos: [],
+    searchKeywords: false,
   },
 
   //데이터를 바꿔줌
@@ -39,11 +41,17 @@ export default {
     },
     SEARCH_TODO(state, keyword) {
       if (keyword) {
-        const search = state.todos.filter(state.todos.text.include(keyword));
-        state.todos = search;
+        const search = keyword.toLowerCase();
+        const result = state.todos.filter((todo) =>
+          todo.text.toLowerCase().includes(search)
+        );
+        state.searchKeywords = true;
+        state.searchTodos = result;
       } else {
-        state.todos = [...state.todos];
+        state.searchTodos = state.todos;
+        state.searchKeywords = false;
       }
+      console.log(state.searchKeywords);
     },
   },
 
@@ -63,15 +71,13 @@ export default {
       }, 500);
     },
 
-    eidtTodo({ commit }, payload) {
+    editTodo({ commit }, payload) {
       setTimeout(function () {
         commit("EDIT_TODO", payload);
       }, 500);
     },
-    searchTodo({ commit }, value) {
-      setTimeout(function () {
-        commit("SEARCH_TODO", value);
-      }, 500);
+    searchTodo({ commit }, keyword) {
+      commit("SEARCH_TODO", keyword);
     },
   },
 
@@ -79,6 +85,13 @@ export default {
   getters: {
     numberOfCompletedTodo: (state) => {
       return state.todos.filter((todo) => todo.checked).length;
+    },
+    searchTodos: (state) => {
+      if (state.searchKeywords == true) {
+        return state.searchTodos;
+      } else {
+        return state.todos;
+      }
     },
   },
 };

@@ -1,21 +1,18 @@
 <template>
   <div>
- <Todo v-for="todo in todos"
+ <Todo v-for="todo in searchTodos"
    :key="todo.id"
-   :todo="todo"
-   @toggle-checkbox="toggleCheckBox"
-   @click-delete="deleteTodo"/>  
+   :todo="todo"/>  
   </div>
 </template>
 <script>
-  import Todo from './Todo.vue';
+import { mapGetters } from 'vuex';
+import Todo from './Todo.vue';
 export default {
     components: { Todo },
     computed:{
-    todos(){
-      return this.$store.state.todo.todos;
-    }
-    },
+      ...mapGetters('todo',['searchTodos']),
+}
 }
 </script>
 <style>
