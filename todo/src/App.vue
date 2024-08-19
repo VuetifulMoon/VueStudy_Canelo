@@ -2,10 +2,10 @@
   <div id="app" class="container">
   <h1 class="text-center">투두리스트</h1>
   <CompletedTodo />
- <AddTodo/>
+ <AddTodo/><br>
+ <SearchTodo />
     <hr>
   <TodoList/>
-  <UserList />
   </div>
 </template>
 
@@ -13,9 +13,9 @@
 import TodoList from './components/TodoList.vue';
 import AddTodo from './components/AddTodo.vue';
 import CompletedTodo from './components/CompletedTodo.vue';
-import UserList from './components/UserList.vue';
+import SearchTodo from './components/SearchTodo.vue';
 export default {
-  components: { TodoList, AddTodo, CompletedTodo, UserList },
+  components: { TodoList, AddTodo, CompletedTodo, SearchTodo },
 
 }
 </script>

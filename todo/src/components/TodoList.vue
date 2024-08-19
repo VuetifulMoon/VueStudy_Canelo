@@ -16,14 +16,6 @@ export default {
       return this.$store.state.todo.todos;
     }
     },
-    methods:{
-      toggleCheckBox(value){
-        this.$emit('toggle-checkbox',value)
-      },
-      deleteTodo(todoId){
-        this.$emit('click-delete',todoId)
-      }
-    }
 }
 </script>
 <style>

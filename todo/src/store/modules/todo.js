@@ -10,11 +10,13 @@ export default {
   //데이터를 바꿔줌
   mutations: {
     ADD_TODO(state, value) {
-      state.todos.push({
-        id: Math.random(),
-        text: value,
-        checked: false,
-      });
+      if (value) {
+        state.todos.push({
+          id: Math.random(),
+          text: value,
+          checked: false,
+        });
+      }
     },
     TOGGLE_TODO(state, { id, checked }) {
       const index = state.todos.findIndex((todo) => {
@@ -35,14 +37,20 @@ export default {
       state.todos[index].text = text;
       // state.todos[index].id = id;
     },
+    SEARCH_TODO(state, keyword) {
+      if (keyword) {
+        const search = state.todos.filter(state.todos.text.include(keyword));
+        state.todos = search;
+      } else {
+        state.todos = [...state.todos];
+      }
+    },
   },
 
   //methods
   actions: {
     addTodo({ commit }, value) {
-      setTimeout(function () {
-        commit("ADD_TODO", value);
-      }, 500);
+      commit("ADD_TODO", value);
     },
     toggleTodo({ commit }, payload) {
       setTimeout(function () {
@@ -58,6 +66,11 @@ export default {
     eidtTodo({ commit }, payload) {
       setTimeout(function () {
         commit("EDIT_TODO", payload);
+      }, 500);
+    },
+    searchTodo({ commit }, value) {
+      setTimeout(function () {
+        commit("SEARCH_TODO", value);
       }, 500);
     },
   },
