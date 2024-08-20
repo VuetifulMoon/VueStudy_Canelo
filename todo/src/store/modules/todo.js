@@ -9,6 +9,7 @@ export default {
     searchKeywords: false,
     deleteId: [],
     filteredTodo: [],
+    delState: true,
   },
 
   //데이터를 바꿔주는 역할(반드시 여기서만 변경)
@@ -60,6 +61,18 @@ export default {
         return todo.id === id;
       });
       state.todos[index].deleted = deleted;
+    },
+    ALL_DEL_CHECK(state, delState) {
+      state.delState = !state.delState;
+      state.todos.deleted = state.todos.map((todo) => {
+        if (delState) {
+          todo.deleted = true;
+        } else {
+          todo.deleted = false;
+        }
+        return todo;
+      });
+      console.log(delState);
     },
   },
 

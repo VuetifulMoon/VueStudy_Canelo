@@ -5,7 +5,7 @@
     <AddTodo /><br />
     <SearchTodo />
     <hr />
-    <button>전체선택/해제</button>
+    <button @click="allDelCheck">전체선택/해제</button>
     <button @click="deleteTodo">삭제</button>
     <div v-if="this.$store.state.todo.searchKeywords == true">
       <h2>검색 결과</h2>
@@ -29,6 +29,11 @@ import SearchTodo from "./components/SearchTodo.vue";
 import CompletedTodoList from "./components/CompletedTodoList.vue";
 // import { mapMutations } from "vuex";
 export default {
+  data() {
+    return {
+      delState: false,
+    };
+  },
   components: {
     TodoList,
     CompletedTodoList,
@@ -37,20 +42,13 @@ export default {
     SearchTodoList,
     SearchTodo,
   },
-  // methods: {
-  //   DELETE_TODO() {
-  //     // const index = state.todos.findIndex((todo) => {
-  //     //   return todo.id === this.deleteId;
-  //     // });
-  //     const filteredTodo = this.$store.state.todo.todos.map((todo) => {
-  //       return todo.id !== this.$store.state.todo.deleteId;
-  //     });
-  //     this.$store.state.todo.todos = filteredTodo;
-  //   },
-  // },
   methods: {
     deleteTodo() {
       this.$store.commit("todo/DELETE_TODO");
+    },
+    allDelCheck() {
+      this.delState = this.$store.state.todo.delState;
+      this.$store.commit("todo/ALL_DEL_CHECK", this.delState);
     },
   },
 };
