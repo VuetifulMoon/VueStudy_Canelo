@@ -2,11 +2,13 @@ export default {
   namespaced: true,
   state: {
     todos: [
-      { id: 1, text: "Buy a Car", checked: false },
-      { id: 2, text: "Buy a Game", checked: false },
+      { id: 1, text: "Buy a Car", checked: false, deleted: false },
+      { id: 2, text: "Buy a Game", checked: false, deleted: false },
     ],
     searchTodos: [],
     searchKeywords: false,
+    deleteId: [],
+    filteredTodo: [],
   },
 
   //데이터를 바꿔주는 역할(반드시 여기서만 변경)
@@ -17,6 +19,7 @@ export default {
           id: state.todos[state.todos.length - 1].id + 1,
           text: value,
           checked: false,
+          deleted: false,
         });
       }
     },
@@ -26,11 +29,10 @@ export default {
       });
       state.todos[index].checked = checked;
     },
-    DELETE_TODO(state, todoId) {
-      const index = state.todos.findIndex((todo) => {
-        return todo.id === todoId;
+    DELETE_TODO(state) {
+      state.todos = state.todos.filter((todo) => {
+        return todo.deleted === false;
       });
-      state.todos.splice(index, 1);
     },
     EDIT_TODO(state, { text, id }) {
       const index = state.todos.findIndex((todo) => {
@@ -52,6 +54,12 @@ export default {
         state.searchKeywords = false;
       }
       console.log(state.searchKeywords);
+    },
+    DELETE_TODOS(state, { id, deleted }) {
+      const index = state.todos.findIndex((todo) => {
+        return todo.id === id;
+      });
+      state.todos[index].deleted = deleted;
     },
   },
 
@@ -87,7 +95,7 @@ export default {
       return state.todos.filter((todo) => todo.checked).length;
     },
     searchTodos: (state) => {
-      if (state.searchKeywords) {
+      if (state.searchKeywords && !state.todos.checked) {
         return state.searchTodos;
       } else {
         return state.todos.filter((todo) => todo.checked == false);
