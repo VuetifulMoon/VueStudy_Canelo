@@ -9,12 +9,12 @@ export default {
     searchKeywords: false,
   },
 
-  //데이터를 바꿔줌
+  //데이터를 바꿔주는 역할(반드시 여기서만 변경)
   mutations: {
     ADD_TODO(state, value) {
       if (value) {
         state.todos.push({
-          id: Math.random(),
+          id: state.todos[state.todos.length - 1].id + 1,
           text: value,
           checked: false,
         });
@@ -87,11 +87,14 @@ export default {
       return state.todos.filter((todo) => todo.checked).length;
     },
     searchTodos: (state) => {
-      if (state.searchKeywords == true) {
+      if (state.searchKeywords) {
         return state.searchTodos;
       } else {
-        return state.todos;
+        return state.todos.filter((todo) => todo.checked == false);
       }
+    },
+    completedTodos: (state) => {
+      return state.todos.filter((todo) => todo.checked == true);
     },
   },
 };
