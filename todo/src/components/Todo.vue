@@ -19,7 +19,7 @@
       <input
         type="checkbox"
         class="btn btn-danger btn-sm"
-        v-model="todo.deleted"
+        :checked="todo.deleted"
         @change="selectDelete"
       />
     </div>
@@ -49,13 +49,13 @@ export default {
     selectDelete(e) {
       this.$store.commit("todo/DELETE_TODOS", {
         id: this.todo.id,
-        deleted: e.target.deleted,
+        deleted: e.target.checked,
       });
     },
     //수정창 생성
     todoEdit() {
       this.editState = !this.editState;
-      this.edtiText = this.$store.state.todo.text;
+      this.editText = this.$store.state.todo.todos.text;
     },
     //변경된 내용으로 수정
     editTodo() {
