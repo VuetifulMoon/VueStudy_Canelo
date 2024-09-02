@@ -11,7 +11,7 @@
 export default {
   computed: {
     news() {
-      return this.$store.state.news.news;
+      return this.$store.state.news.news.articles;
     },
   },
 };

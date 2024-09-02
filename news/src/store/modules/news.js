@@ -3,18 +3,28 @@ export default {
   state: {
     news: [],
     category: "business",
+    pageCount: 1,
+    totalPage: 1,
   },
   mutations: {
-    getNews(state, category) {
+    getNews(state, { category, pageNum }) {
       state.category = category;
+      state.pageCount = pageNum;
       console.log(category);
-      const url = `https://newsapi.org/v2/top-headlines?country=kr&category=${state.category}&apiKey=639941d2503f480c8d60edd0fc81f642`;
-      axios.get(url).then((res) => {
+      const url = `https://newsapi.org/v2/top-headlines?country=kr&category=${state.category}&page=${state.pageCount}&apiKey=639941d2503f480c8d60edd0fc81f642`;
+      return axios.get(url).then((res) => {
         console.log(res);
-        state.news = res.data.articles;
+        state.news = res.data;
+        state.totalPage = Math.ceil(res.data.totalResults / 20);
       });
     },
   },
   actions: {},
-  getters: {},
+  getters: {
+    // calcPage(state) {
+    //   const totalPage = state.news.totalResults / 20;
+    //   console.log(totalPage);
+    //   return totalPage < 1 && "NaN" && "undefined" ? 1 : Math.ceil(totalPage);
+    // },
+  },
 };
