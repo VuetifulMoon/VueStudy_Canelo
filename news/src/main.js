@@ -1,6 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
-import store from "/store";
+import store from "./store";
 
 // Vue.use(axios);
 // Vue.prototype.$axios = axios;
