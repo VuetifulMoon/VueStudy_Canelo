@@ -25,9 +25,9 @@ export default {
   components: { NewsItem },
   data() {
     return {
-      category: "",
+      category: "business",
       pageNum: 1,
-      totalPage: 1,
+      // totalPage: 1,
     };
   },
   created() {
@@ -36,16 +36,18 @@ export default {
       category: "business",
       pageNum: 1,
     });
-    //총 페이지 개수 저장
-    this.totalPage = this.$store.state.news.totalPage;
   },
-  beforeUpdate() {
-    this.$store.commit("getNews", {
-      category: "business",
-      pageNum: this.pageNum,
-    });
+  computed: {
+    //총 페이지 개수 가져오기
+    totalPage() {
+      return this.$store.state.news.totalPage;
+    },
   },
-
+  watch: {
+    category() {
+      this.$store.state.news.news.category;
+    },
+  },
   methods: {
     pageNumber(page) {
       this.pageNum = page;
@@ -56,7 +58,6 @@ export default {
         category: this.category,
         pageNum: this.pageNum,
       });
-      this.totalPage = this.$store.state.news.totalPage;
     },
   },
 };
