@@ -14,5 +14,10 @@ export default {
       return this.$store.state.news.news.articles;
     },
   },
+  watch: {
+    news() {
+      this.news();
+    },
+  },
 };
 </script>

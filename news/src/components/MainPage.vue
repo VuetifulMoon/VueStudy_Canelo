@@ -46,6 +46,10 @@ export default {
   watch: {
     category() {
       this.$store.state.news.news.category;
+      this.$store.commit("getNews", {
+        category: this.category,
+        pageNum: 1,
+      });
     },
   },
   methods: {
