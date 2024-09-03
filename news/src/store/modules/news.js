@@ -13,17 +13,16 @@ export default {
       const url = `https://newsapi.org/v2/top-headlines?country=kr&category=${state.category}&page=${state.pageCount}&apiKey=639941d2503f480c8d60edd0fc81f642`;
       return axios.get(url).then((res) => {
         console.log(res);
-        state.totalPage = Math.ceil(res.data.totalResults / 20);
+        state.totalPage = res.data.totalResults;
         state.news = res.data;
       });
     },
   },
   actions: {},
   getters: {
-    // calcPage(state) {
-    //   const totalPage = state.news.totalResults / 20;
-    //   console.log(totalPage);
-    //   return totalPage < 1 && "NaN" && "undefined" ? 1 : Math.ceil(totalPage);
-    // },
+    calcPage(state) {
+      return Math.ceil(state.totalPage / 20);
+      // return state.totalPage < 1 ? 1 : state.totalPage;
+    },
   },
 };

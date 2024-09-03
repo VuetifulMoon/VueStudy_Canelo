@@ -40,7 +40,7 @@ export default {
   computed: {
     //총 페이지 개수 가져오기
     totalPage() {
-      return this.$store.state.news.totalPage;
+      return this.$store.getters["calcPage"];
     },
   },
   watch: {
